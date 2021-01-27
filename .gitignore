@@ -3,6 +3,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,xcode,c++
 
 *.in
+*.out
 
 ### C++ ###
 # Prerequisites
