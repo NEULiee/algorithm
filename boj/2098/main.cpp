@@ -7,28 +7,28 @@
 
 #include <iostream>
 #include <algorithm>
+#include <cstring>
 using namespace std;
 
-int N, W[16][16], dp[16][(1 << 16) + 1];
+int N, W[16][16], dp[16][(1 << 16) + 1], minValue = 1e9;
 
-int dfs(int cur, int curVisited) {
-    if (curVisited == (1 << N) - 1) {
-        return W[cur][0] == 0 ? 1e9 : W[cur][0];
+int rec(int cur, int road) {
+    if (road == (1 << N) - 1) {
+        return W[cur][0] ? W[cur][0] : 1e9;
     }
-    if (dp[cur][curVisited] != 1e9) {
-        return dp[cur][curVisited];
+    if (dp[cur][road] != -1) {
+        return dp[cur][road];
     }
+    dp[cur][road] = 1e9;
     for (int i=0; i<N; i++) {
-        if (curVisited & (1 << i)) {
+        if (W[cur][i] == 0){
             continue;
         }
-        if (W[cur][i] == 0) {
-            continue;
+        if (!(road & (1 << i))) {
+            dp[cur][road] = min(dp[cur][road], W[cur][i] + rec(i, road | (1 << i)));
         }
-        dp[cur][curVisited] = min(dp[cur][curVisited], dfs(1, (curVisited | (1 << i)) + W[cur][i]));
-        return dp[cur][curVisited];
     }
-    return 0;
+    return dp[cur][road];
 }
 
 int main(int argc, const char * argv[]) {
@@ -41,12 +41,7 @@ int main(int argc, const char * argv[]) {
             cin >> W[i][j];
         }
     }
-    for (int i=0; i<16; i++) {
-        for (int j=0; j< ((1 << N) -1); j++) {
-            dp[i][j] = 1e9;
-        }
-    }
-
-    cout << dfs(0, 1);
-    return 0;
+    memset(dp, -1, sizeof(dp));
+    
+    cout << rec(0, 1) << "\n";
 }
