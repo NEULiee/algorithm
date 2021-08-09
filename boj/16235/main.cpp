@@ -1,14 +1,19 @@
-//
-//  main.cpp
-//  16235
-//
-//  Created by Ha Neul Iee on 2021/03/25.
-//
-
 #include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
 
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
-    return 0;
+using namespace std;
+
+vector<int> v1 = {1, 2, 3};
+
+// v1의 값들이 바뀌지 않음
+for (int e: v1) {
+    e++;
+    cout << e << "\n";
+}
+
+for (int& e: v1) {
+    e++;
+    cout << e << "\n";
 }

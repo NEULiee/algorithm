@@ -1,6 +1,6 @@
 //
 //  main.cpp
-//  11723
+//  11723 집합
 //
 //  Created by Ha Neul Iee on 2021/02/12.
 //
